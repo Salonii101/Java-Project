@@ -1,0 +1,13 @@
+Q:What is a synonym for 'Happy'?
+A:Sad
+A:Joyful
+A:Angry
+A:Tired
+C:2
+
+Q:What is the antonym of 'Fast'?
+A:Quick
+A:Rapid
+A:Slow
+A:Swift
+C:3

@@ -1,0 +1,13 @@
+Q:What does CPU stand for?
+A:Central Process Unit
+A:Central Processing Unit
+A:Computer Personal Unit
+A:Central Power Unit
+C:2
+
+Q:HTML is primarily used to?
+A:Style pages
+A:Program hardware
+A:Structure web pages
+A:Send emails
+C:3
