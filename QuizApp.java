@@ -2,7 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class QuizApp {
+
     public static void main(String[] args) {
+        new File(Utils.USER_DIR).mkdirs();
+        new File(Utils.QUESTION_DIR).mkdirs();
         Scanner scanner = new Scanner(System.in);
         boolean loggedIn = false;
         String currentUserId = "";
@@ -60,7 +63,9 @@ public class QuizApp {
             }
 
             String subject = subjectNames.get(subjectChoice);
-            String fileName = subjectFiles.get(subjectChoice);
+            //String fileName = subjectFiles.get(subjectChoice);
+             //  Fetch question file from "Question text files/"
+            String fileName = Utils.getQuestionFile(subject);
 
             List<Question> questions = Utils.loadQuestions(fileName);
             if (questions.isEmpty()) {
@@ -90,7 +95,10 @@ public class QuizApp {
                     currentUserName, currentUserId, subject, quiz.getScore(), totalQuestions, accuracy, totalSeconds);
 
             // Save report
-            String historyFile = currentUserId + "_history.txt";
+            //String historyFile = currentUserId + "_history.txt";
+            
+            // Save history into "User text/history files/"
+            String historyFile = Utils.getHistoryFile(currentUserId);
             try (PrintWriter out = new PrintWriter(new FileWriter(historyFile, true))) {
                 out.println(report);
                 System.out.println("Score saved to " + historyFile);

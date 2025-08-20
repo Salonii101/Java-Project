@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class Auth {
-    private static final String FILE_NAME = "users.txt";
+   // private static final String FILE_NAME = "users.txt";
     private static int idCounter = 1000;
     private static String currentUserId = "";
     private static String currentUserName = "";
@@ -18,7 +18,7 @@ public class Auth {
         String hashedPassword = hashPassword(password);
         String userId = "U" + (++idCounter);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Utils.USER_FILE, true))) {
             bw.write(userId + "," + hashedPassword + "," + name);
             bw.newLine();
         }
@@ -38,7 +38,7 @@ public class Auth {
 
         String hashedPassword = hashPassword(password);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Utils.USER_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");

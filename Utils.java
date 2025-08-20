@@ -9,6 +9,39 @@ import java.util.concurrent.*;
 
 public class Utils {
 
+    // ==========================
+    //  FILE PATH CONFIGURATIONS
+    // ==========================
+
+    // Base directory for user-related files
+    public static final String USER_DIR = "User/";
+
+    // Base directory for question files
+    public static final String QUESTION_DIR = "Question text files/";
+
+    // Users database file
+    public static final String USER_FILE = USER_DIR + "users.txt";
+
+    // Get history file path for a user
+    public static String getHistoryFile(String username) {
+        return USER_DIR + username + "_history.txt";
+    }
+
+    // Get question file path for a subject
+    public static String getQuestionFile(String subject) {
+        switch (subject.toLowerCase()) {
+            case "english":
+                return QUESTION_DIR + "english.txt";
+            case "maths":
+                return QUESTION_DIR + "maths.txt";
+            case "computer":
+                return QUESTION_DIR + "computer.txt";
+            default:
+                throw new IllegalArgumentException("Unknown subject: " + subject);
+        }
+    }
+
+
     @SuppressWarnings({"CallToPrintStackTrace", "UseSpecificCatch"})
     public static int getUserAnswerWithTimeout(Scanner sc, int seconds) {
     ExecutorService executor = Executors.newSingleThreadExecutor();
