@@ -1,5 +1,5 @@
 # Ignore compiled class files
-class files/
+classFiles/
 *.class
 
 # Ignore VS Code settings

@@ -1,11 +1,15 @@
+package javaQuizApp ;
+import javaQuizApp.Utils.Auth;
+import javaQuizApp.Utils.PathFile;
+
 import java.io.*;
 import java.util.*;
 
 public class QuizApp {
 
     public static void main(String[] args) {
-        new File(Utils.USER_DIR).mkdirs();
-        new File(Utils.QUESTION_DIR).mkdirs();
+        new File(PathFile.USER_DIR).mkdirs();
+        new File(PathFile.QUESTION_DIR).mkdirs();
         Scanner scanner = new Scanner(System.in);
         boolean loggedIn = false;
         String currentUserId = "";
@@ -48,7 +52,7 @@ public class QuizApp {
                 "M", "Maths"
         );
 
-        while (completedSubjects.size() < 3) {
+        while (true) {
             System.out.print("Choose a subject - (E) English, (C) Computer, (M) Maths: ");
             String subjectChoice = scanner.next().toUpperCase();
 
@@ -65,9 +69,9 @@ public class QuizApp {
             String subject = subjectNames.get(subjectChoice);
             //String fileName = subjectFiles.get(subjectChoice);
              //  Fetch question file from "Question text files/"
-            String fileName = Utils.getQuestionFile(subject);
+            String fileName = PathFile.getQuestionFile(subject);
 
-            List<Question> questions = Utils.loadQuestions(fileName);
+            List<Question> questions = PathFile.loadQuestions(fileName);
             if (questions.isEmpty()) {
                 System.out.println("No questions found for " + subject);
                 continue;
@@ -98,7 +102,7 @@ public class QuizApp {
             //String historyFile = currentUserId + "_history.txt";
             
             // Save history into "User text/history files/"
-            String historyFile = Utils.getHistoryFile(currentUserId);
+            String historyFile = PathFile.getHistoryFile(currentUserId);
             try (PrintWriter out = new PrintWriter(new FileWriter(historyFile, true))) {
                 out.println(report);
                 System.out.println("Score saved to " + historyFile);
@@ -107,7 +111,7 @@ public class QuizApp {
             }
 
             completedSubjects.add(subjectChoice);
-            Utils.printLine();
+            PathFile.printLine();
 
             if (completedSubjects.size() < 3) {
                 System.out.print("Do you want to take another quiz? (Y/N): ");
@@ -121,6 +125,6 @@ public class QuizApp {
 
         System.out.println("All selected quizzes completed successfully!");
         System.out.println("Your score has been saved to your history file.");
-        Utils.printLine();
+        PathFile.printLine();
     }
 }

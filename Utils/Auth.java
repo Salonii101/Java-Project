@@ -1,3 +1,5 @@
+package javaQuizApp.Utils;
+
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +20,7 @@ public class Auth {
         String hashedPassword = hashPassword(password);
         String userId = "U" + (++idCounter);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Utils.USER_FILE, true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PathFile.USER_FILE, true))) {
             bw.write(userId + "," + hashedPassword + "," + name);
             bw.newLine();
         }
@@ -38,7 +40,7 @@ public class Auth {
 
         String hashedPassword = hashPassword(password);
 
-        try (BufferedReader br = new BufferedReader(new FileReader(Utils.USER_FILE))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PathFile.USER_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");

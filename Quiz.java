@@ -1,3 +1,6 @@
+package javaQuizApp ;
+import javaQuizApp.Utils.PathFile;
+
 import java.util.*;
 
 public class Quiz {
@@ -14,13 +17,13 @@ public class Quiz {
     public void startQuiz(int timePerQuestionSeconds) {
         Scanner sc = new Scanner(System.in);
         System.out.println(" Quiz is starting... You have " + timePerQuestionSeconds + " seconds per question!");
-        Utils.printLine();
+        PathFile.printLine();
 
         for (Question q : questions) {
             q.displayQuestion();
             System.out.print("Your answer (1-4): ");
 
-            int answer = Utils.getUserAnswerWithTimeout(sc, timePerQuestionSeconds);
+            int answer = PathFile.getUserAnswerWithTimeout(sc, timePerQuestionSeconds);
             userAnswers.put(q, answer);
 
             if (q.isCorrect(answer)) {
@@ -32,21 +35,21 @@ public class Quiz {
                 System.out.println(" Wrong!");
             }
 
-            Utils.printLine();
-            Utils.sleep(1000); // brief pause before next question
+            PathFile.printLine();
+            PathFile.sleep(1000); // brief pause before next question
         }
     }
 
     public void showScore() {
         System.out.println(" Quiz Finished!");
-        Utils.printLine();
+        PathFile.printLine();
         System.out.println(" Your Score: " + score + " out of " + questions.size());
-        Utils.printLine();
+        PathFile.printLine();
     }
 
     public void reviewAnswers() {
         System.out.println("\n Answer Review:");
-        Utils.printLine();
+        PathFile.printLine();
 
         for (Question q : questions) {
             System.out.println("Q: " + q.question);
@@ -59,7 +62,7 @@ public class Quiz {
             }
 
             System.out.println("Correct Answer: " + q.getCorrectAnswer());
-            Utils.printLine();
+            PathFile.printLine();
         }
     }
 

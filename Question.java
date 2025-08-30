@@ -1,3 +1,5 @@
+package javaQuizApp ;
+
 public class Question {
     String question;
     String[] options;
