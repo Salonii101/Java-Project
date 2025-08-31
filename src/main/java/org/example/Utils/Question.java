@@ -1,4 +1,4 @@
-package javaQuizApp ;
+package org.example.Utils;
 
 public class Question {
     String question;

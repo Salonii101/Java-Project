@@ -1,7 +1,7 @@
-package javaQuizApp ;
-import javaQuizApp.Utils.PathFile;
+package org.example.Utils;
 
 import java.util.*;
+
 
 public class Quiz {
     @SuppressWarnings("FieldMayBeFinal")
