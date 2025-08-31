@@ -1,63 +1,35 @@
-<<<<<<< HEAD
-# Ignore compiled class files
-classFiles/
+# Java class files
 *.class
 
-.idea
-
-# Ignore VS Code settings
-.vscode/
-=======
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Compiled files directory
+classFiles/
 
 # IntelliJ IDEA
 .idea/
 *.iml
 out/
-
-# Maven
-target/
-
-# Logs
-*.log
-
-# OS
-.DS_Store
-Thumbs.db
-
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
 *.iws
-*.iml
 *.ipr
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
 
 ### Eclipse ###
 .apt_generated
 .classpath
 .factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
->>>>>>> 9aa2843 (Change Folder Structure For JDBC & Maven)
+.projec
