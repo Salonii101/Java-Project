@@ -3,6 +3,8 @@
 classFiles/
 *.class
 
+.idea
+
 # Ignore VS Code settings
 .vscode/
 =======
