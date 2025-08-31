@@ -17,10 +17,10 @@ public class PathFile {
     // ==========================
 
     // Base directory for user-related files
-    public static final String USER_DIR = "User/";
+    public static final String USER_DIR = "src/javaQuizApp/User/";
 
     // Base directory for question files
-    public static final String QUESTION_DIR = "Question text files/";
+    public static final String QUESTION_DIR = "src/javaQuizApp/questionTextFiles/";
 
     // Users database file
     public static final String USER_FILE = USER_DIR + "users.txt";

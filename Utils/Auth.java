@@ -7,7 +7,6 @@ import java.util.*;
 
 public class Auth {
    // private static final String FILE_NAME = "users.txt";
-    private static int idCounter = 1000;
     private static String currentUserId = "";
     private static String currentUserName = "";
 
@@ -18,7 +17,7 @@ public class Auth {
         String password = scanner.nextLine();
 
         String hashedPassword = hashPassword(password);
-        String userId = "U" + (++idCounter);
+        String userId = "U" + UUID.randomUUID().toString().substring(0,12) ;
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PathFile.USER_FILE, true))) {
             bw.write(userId + "," + hashedPassword + "," + name);
