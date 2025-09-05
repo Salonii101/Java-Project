@@ -1,21 +1,38 @@
 package org.example.models;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Questions")
 public class Questions {
 
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
-        private int subjectId;   // FK to Subject
+
+        @ManyToOne
+        @JoinColumn(name = "subject_id", nullable = false)
+        private Subject subject;// FK to Subject
+        @Column(name="questionText", length = 100 , nullable = false)
         private String questionText;
+
+        @Column(name="OptionA",length = 2, nullable = false)
         private String optionA;
+        @Column(name="OptionB",length = 2, nullable = false)
         private String optionB;
+        @Column(name="OptionC",length = 2, nullable = false)
         private String optionC;
+        @Column(name="OptionD",length = 2, nullable = false)
         private String optionD;
+        @Column(name="CorrectOption",length = 2, nullable = false)
         private char correctOption;
 
         public Questions() {}
-        public Questions(int id, int subjectId, String questionText,
+        public Questions(int id, Subject subject , String questionText,
                         String optionA, String optionB, String optionC, String optionD, char correctOption) {
             this.id = id;
-            this.subjectId = subjectId;
+            this.subject = subject;
             this.questionText = questionText;
             this.optionA = optionA;
             this.optionB = optionB;
@@ -35,12 +52,12 @@ public class Questions {
         this.id = id;
     }
 
-    public int getSubjectId() {
-        return subjectId;
+    public Subject getSubjectId() {
+        return subject;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getOptionA() {

@@ -1,19 +1,31 @@
 package org.example.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "quiz")
 public class Quiz {
 
-        private int id;
-        private int subjectId;  // FK to Subject
-        private String title;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment in DB
+    @Column(name = "id")
+    private int id;
 
-        public Quiz() {}
-        public Quiz(int id, int subjectId, String title) {
-            this.id = id;
-            this.subjectId = subjectId;
-            this.title = title;
-        }
+    @Column(name = "subject_id", nullable = false) // FK to Subject
+    private int subjectId;
 
-        // getters & setters
+    @Column(name = "title", nullable = false, length = 100)
+    private String title;
+
+    // Constructors
+    public Quiz() {}
+
+    public Quiz(int subjectId, String title) {
+        this.subjectId = subjectId;
+        this.title = title;
+    }
+
+    // Getters & Setters
     public int getId() {
         return id;
     }
