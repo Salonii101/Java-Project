@@ -11,4 +11,5 @@ public interface SubjectDAO {
     Subject findById(int id) ;
     List<Subject> findAll() ;
 
+    List<Subject> getAllSubjects();
 }

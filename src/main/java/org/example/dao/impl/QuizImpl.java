@@ -11,7 +11,7 @@ public class QuizImpl implements QuizDAO {
 
     private final SessionFactory sessionFactory;
 
-    public QuizImpl(SessionFactory sessionFactory) {
+    public QuizImpl() {
         this.sessionFactory = sessionFactory;
     }
 

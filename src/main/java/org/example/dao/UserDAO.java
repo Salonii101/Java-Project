@@ -9,4 +9,6 @@ public interface UserDAO {
     void delete(User user);
     User findById(int id);
     List<User> findAll();
+
+
 }

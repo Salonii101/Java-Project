@@ -2,6 +2,7 @@ package org.example.dao.impl;
 
 import org.example.Utils.Question;
 import org.example.dao.QuestionDAO;
+import org.example.models.Questions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,12 +13,12 @@ public class QuestionImpl implements QuestionDAO {
 
     private final SessionFactory sessionFactory;
 
-    public QuestionImpl(SessionFactory sessionFactory) {
+    public QuestionImpl() {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void save(Question question) {
+    public void save(Questions question) {
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();

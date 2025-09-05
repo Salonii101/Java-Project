@@ -12,7 +12,7 @@ public class UserImpl implements UserDAO {
 
     private final SessionFactory sessionFactory;
 
-    public UserImpl(SessionFactory sessionFactory) {
+    public UserImpl() {
         this.sessionFactory = sessionFactory;
     }
 
