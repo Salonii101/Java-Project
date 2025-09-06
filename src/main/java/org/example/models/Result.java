@@ -1,6 +1,7 @@
 package org.example.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 import java.time.LocalDateTime;
 
 @Entity
@@ -8,17 +9,16 @@ import java.time.LocalDateTime;
 public class Result {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment PK
-    @Column(name = "id")
-    private int id;
+    @GeneratedValue
+    @UuidGenerator
+    @Column(name = "id", updatable = false, nullable = false, length = 36)
+    private String id;
 
-    // Relation to User
-    @ManyToOne(fetch = FetchType.LAZY)   // Many results can belong to one user
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Relation to Quiz
-    @ManyToOne(fetch = FetchType.LAZY)   // Many results can belong to one quiz
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
@@ -28,7 +28,6 @@ public class Result {
     @Column(name = "taken_at", nullable = false)
     private LocalDateTime takenAt;
 
-    // Constructors
     public Result() {}
 
     public Result(User user, Quiz quiz, int score, LocalDateTime takenAt) {
@@ -39,8 +38,8 @@ public class Result {
     }
 
     // Getters & Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }

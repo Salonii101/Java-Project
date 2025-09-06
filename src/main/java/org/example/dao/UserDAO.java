@@ -7,8 +7,6 @@ public interface UserDAO {
     void save(User user);
     void update(User user);
     void delete(User user);
-    User findById(int id);
+    User findById(String id); // UUID as String
     List<User> findAll();
-
-
 }

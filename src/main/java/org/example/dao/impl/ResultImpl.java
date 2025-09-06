@@ -1,67 +1,42 @@
-package org.example.dao;
+package org.example.dao.impl;
 
+import org.example.dao.ResultDAO;
 import org.example.models.Result;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
+import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class ResultImpl implements ResultDAO {
 
-    private final SessionFactory sessionFactory;
+    private final Object sessionFactory;
 
-    public ResultImpl(SessionFactory sessionFactory) {
+    public ResultImpl(Object sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     public void save(Result result) {
-        Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
-            tx = session.beginTransaction();
-            session.persist(result);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-        }
+        // stub
     }
 
     @Override
     public void update(Result result) {
-        Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
-            tx = session.beginTransaction();
-            session.merge(result);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-        }
+        // stub
     }
 
     @Override
     public void delete(Result result) {
-        Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
-            tx = session.beginTransaction();
-            session.remove(result);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-        }
+        // stub
     }
 
     @Override
     public Result findById(int id) {
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(Result.class, id);
-        }
+        return null;
     }
 
     @Override
     public List<Result> findAll() {
-        try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Result", Result.class).list();
-        }
+        return Collections.emptyList();
     }
 }

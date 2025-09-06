@@ -4,12 +4,17 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.example.dao.UserDAO;
 import org.example.dao.impl.UserImpl;
 import org.example.models.User;
+import org.hibernate.SessionFactory;
 
 public class UserService {
-    private final UserDAO userDAO = new UserImpl();
+    private final UserDAO userDAO;
 
-    public void register(String userId , String username, String rawPassword, String role) {
-        String hashed = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
+    public UserService(SessionFactory sessionFactory) {
+        this.userDAO = new UserImpl(sessionFactory);
+    }
+
+    public void register(String username, String rawPassword, String role) {
+        String hashed = BCrypt.withDefaults().hashToString(12, rawPassword.toCharArray());
         User user = new User();
         user.setName(username);
         user.setHashPassword(hashed);
@@ -17,11 +22,11 @@ public class UserService {
         userDAO.save(user);
     }
 
-    public User login(String userId , String username, String rawPassword) {
+    public User login(String userId, String rawPassword) {
         User user = userDAO.findById(userId);
-        if (user != null && BCrypt.checkpw(rawPassword, user.getHashPassword())) {
-            return user; // Login successful
+        if (user != null && BCrypt.verifyer().verify(rawPassword.toCharArray(), user.getHashPassword()).verified) {
+            return user; // success
         }
-        return null; // Invalid login
+        return null; // fail
     }
 }
