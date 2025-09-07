@@ -1,16 +1,18 @@
 package org.example.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 import java.util.List;
 
 @Entity
-@Table(name = "users") // "user" is reserved in SQL, so safer to use "users"
+@Table(name = "users") // "user" reserved in SQL
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @GeneratedValue
+    @UuidGenerator
+    @Column(name = "id", updatable = false, nullable = false, length = 36)
+    private String id;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -38,8 +40,8 @@ public class User {
     }
 
     // Getters & Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

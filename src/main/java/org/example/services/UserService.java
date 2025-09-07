@@ -4,9 +4,13 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.example.dao.UserDAO;
 import org.example.dao.impl.UserImpl;
 import org.example.models.User;
+import org.hibernate.SessionFactory;
 
 public class UserService {
     private final UserDAO userDAO = new UserImpl();
+
+    public UserService(SessionFactory sessionFactory) {
+    }
 
     public void register(String userId , String username, String rawPassword, String role) {
         String hashed = BCrypt.hashpw(rawPassword, BCrypt.gensalt());

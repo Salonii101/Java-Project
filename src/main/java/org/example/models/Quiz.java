@@ -2,6 +2,8 @@ package org.example.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "quiz")
 public class Quiz {
@@ -16,6 +18,18 @@ public class Quiz {
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
+
+    // relation
+    @ManyToOne
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Result> results;
 
     // Constructors
     public Quiz() {}
