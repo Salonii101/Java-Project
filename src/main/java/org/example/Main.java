@@ -1,3 +1,5 @@
+package org.example;
+
 import org.example.models.Quiz;
 import org.example.models.User;
 import org.example.services.QuizService;
@@ -26,7 +28,7 @@ public class Main {
             String name = sc.nextLine();
             System.out.print("Enter password: ");
             String pass = sc.nextLine();
-            userService.register(name, pass, "student");
+            userService.register(userId, name, pass, "student");
             System.out.println("User registered!");
         }
 
