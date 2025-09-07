@@ -56,7 +56,7 @@ public class UserImpl implements UserDAO {
     }
 
     @Override
-    public User findById(int id) {
+    public User findById(String id) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(User.class, id);
         }

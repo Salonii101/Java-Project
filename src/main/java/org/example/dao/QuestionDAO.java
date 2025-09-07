@@ -12,8 +12,6 @@ public interface QuestionDAO {
         void delete(Question question);
         Question findById(int id);
         List<Question> findAll();
-        List<Question> findByQuizId(int quizId); // extra helper
-
-
-    List<Question> getQuestionsBySubject(int subjectId);
+        List<Question> findByQuizId(int quizId);
+        List<Question> getQuestionsBySubject(int subjectId);
 }

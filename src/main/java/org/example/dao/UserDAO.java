@@ -7,8 +7,9 @@ public interface UserDAO {
     void save(User user);
     void update(User user);
     void delete(User user);
-    User findById(int id);
+    User findById(String id);
     List<User> findAll();
+    void get(User user) ;
 
 
 }

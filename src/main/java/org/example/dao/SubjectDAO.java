@@ -9,7 +9,5 @@ public interface SubjectDAO {
     void delete(Subject subject) ;
     void update(Subject subject) ;
     Subject findById(int id) ;
-    List<Subject> findAll() ;
-
     List<Subject> getAllSubjects();
 }
