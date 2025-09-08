@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 import java.util.List;
 
-@Entity
+@Entity 
 @Table(name = "users") // "user" reserved in SQL
 public class User {
 

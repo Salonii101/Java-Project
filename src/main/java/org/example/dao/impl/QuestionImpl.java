@@ -59,21 +59,21 @@ public class QuestionImpl implements QuestionDAO {
     @Override
     public Questions findById(int id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.find(Question.class, id);
+            return session.find(Questions.class, id);
         }
     }
 
     @Override
-    public List<Question> findAll() {
+    public List<Questions> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Question", Question.class).list();
+            return session.createQuery("from Question", Questions.class).list();
         }
     }
 
     @Override
-    public List<Question> findByQuizId(int quizId) {
+    public List<Questions> findByQuizId(int quizId) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Question q where q.quiz.id = :quizId", Question.class)
+            return session.createQuery("from Question q where q.quiz.id = :quizId", Questions.class)
                     .setParameter("quizId", quizId)
                     .list();
         }
@@ -82,7 +82,7 @@ public class QuestionImpl implements QuestionDAO {
     @Override
     public List<Questions> getQuestionsBySubject(int subjectId) {
         try(Session session = sessionFactory.openSession()){
-            return session.createQuery("FROM Question q WHERE q.subjectId = :subjectId", Question.class)
+            return session.createQuery("FROM Question q WHERE q.subjectId = :subjectId", Questions.class)
                     .setParameter("subjectId",subjectId).getResultList() ;
         }
     }

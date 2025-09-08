@@ -13,9 +13,6 @@ public class Quiz {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "subject_id", nullable = false) // FK to Subject
-    private int subjectId;
-
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
@@ -34,8 +31,7 @@ public class Quiz {
     // Constructors
     public Quiz() {}
 
-    public Quiz(int subjectId, String title) {
-        this.subjectId = subjectId;
+    public Quiz( String title) {
         this.title = title;
     }
 
@@ -46,14 +42,6 @@ public class Quiz {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
     }
 
     public String getTitle() {

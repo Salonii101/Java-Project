@@ -39,7 +39,7 @@ public class QuestionService {
     }
 
     // Get questions by subject ID
-    public List<Questions> getQuestionsBySubject(int subjectId) {
-        return questionDAO.findBySubjectId(subjectId);
-    }
+//    public List<Questions> getQuestionsBySubject(int subjectId) {
+//        return questionDAO.findBySubjectId(subjectId);
+//    }
 }

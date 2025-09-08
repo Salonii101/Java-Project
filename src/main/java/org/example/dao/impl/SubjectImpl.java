@@ -19,38 +19,65 @@ public class SubjectImpl implements SubjectDAO {
     @Override
     public void save(Subject subject) {
         Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.persist(subject);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null) {
+                try {
+                    tx.rollback();
+                } catch (Exception rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
         }
     }
+
 
     @Override
     public void update(Subject subject) {
         Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.merge(subject);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null) {
+                try { tx.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public void delete(Subject subject) {
         Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.remove(subject);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null) {
+                try { tx.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
         }
     }
+
 
     @Override
     public Subject findById(int id) {

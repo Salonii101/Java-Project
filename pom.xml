@@ -15,6 +15,14 @@
     </properties>
 
     <dependencies>
+
+        <!-- PSQL JDBC Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
         <!-- MySQL JDBC Driver -->
         <dependency>
             <groupId>com.mysql</groupId>

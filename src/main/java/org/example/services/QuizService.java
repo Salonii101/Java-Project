@@ -38,8 +38,8 @@ public class QuizService {
         return quizDAO.findAll();
     }
 
-    public List<Quiz> getQuizzesBySubject(int subjectId) {
-            return quizDAO.findBySubjectId(subjectId);
-    }
+//    public List<Quiz> getQuizzesBySubject(int subjectId) {
+//            return quizDAO.findBySubjectId(subjectId);
+//    }
 
 }
