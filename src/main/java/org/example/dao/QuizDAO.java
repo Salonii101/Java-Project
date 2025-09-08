@@ -9,4 +9,5 @@ public interface QuizDAO {
     void delete(Quiz quiz);
     Quiz findById(int id);
     List<Quiz> findAll();
+    List<Quiz> findBySubjectId(int subjectId);
 }

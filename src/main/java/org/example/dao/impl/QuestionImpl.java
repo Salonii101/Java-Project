@@ -31,7 +31,7 @@ public class QuestionImpl implements QuestionDAO {
     }
 
     @Override
-    public void update(Question question) {
+    public void update(Questions question) {
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
@@ -44,7 +44,7 @@ public class QuestionImpl implements QuestionDAO {
     }
 
     @Override
-    public void delete(Question question) {
+    public void delete(Questions question) {
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
@@ -57,7 +57,7 @@ public class QuestionImpl implements QuestionDAO {
     }
 
     @Override
-    public Question findById(int id) {
+    public Questions findById(int id) {
         try (Session session = sessionFactory.openSession()) {
             return session.find(Question.class, id);
         }
@@ -80,7 +80,7 @@ public class QuestionImpl implements QuestionDAO {
     }
 
     @Override
-    public List<Question> getQuestionsBySubject(int subjectId) {
+    public List<Questions> getQuestionsBySubject(int subjectId) {
         try(Session session = sessionFactory.openSession()){
             return session.createQuery("FROM Question q WHERE q.subjectId = :subjectId", Question.class)
                     .setParameter("subjectId",subjectId).getResultList() ;
