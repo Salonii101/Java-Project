@@ -12,7 +12,7 @@ public class UserImpl implements UserDAO {
 
     private final SessionFactory sessionFactory;
 
-    public UserImpl() {
+    public UserImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -58,7 +58,7 @@ public class UserImpl implements UserDAO {
     @Override
     public User findById(String id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(User.class, id);
+            return session.find(User.class, id);
         }
     }
 
@@ -68,4 +68,5 @@ public class UserImpl implements UserDAO {
             return session.createQuery("from User", User.class).list();
         }
     }
+
 }

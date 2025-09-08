@@ -1,79 +1,71 @@
 package org.example;
 
-import org.example.models.Quiz;
+import org.example.dao.UserDAO;
+import org.example.dao.SubjectDAO;
+import org.example.dao.impl.UserImpl;
+import org.example.dao.impl.SubjectImpl;
 import org.example.models.User;
-import org.example.services.QuizService;
-import org.example.services.ResultService;
-import org.example.services.SubjectService;
+import org.example.models.Subject;
 import org.example.services.UserService;
+import org.example.services.SubjectService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        // Create a Hibernate SessionFactory from hibernate.cfg.xml
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        // Step 1 – Create Hibernate SessionFactory
+        SessionFactory sessionFactory = new Configuration()
+                .configure("hibernate.cfg.xml") // Make sure this file is in your resources folder
+                .buildSessionFactory();
 
-        // Pass sessionFactory into each service
-        UserService userService = new UserService(sessionFactory);
-        SubjectService subjectService = new SubjectService(sessionFactory);
-        QuizService quizService = new QuizService(sessionFactory);
-        ResultService resultService = new ResultService(sessionFactory);
+        try {
+            // Step 2 – Create DAO implementations
+            UserDAO userDAO = new UserImpl(sessionFactory);
+            SubjectDAO subjectDAO = new SubjectImpl(sessionFactory);
 
-        System.out.println("1. Register\n2. Login");
-        int choice = sc.nextInt();
-        sc.nextLine();
+            // Step 3 – Create service instances
+            UserService userService = new UserService(userDAO);
+            SubjectService subjectService = new SubjectService(subjectDAO);
 
-        User loggedInUser = null;
-        if (choice == 1) {
-            System.out.print("Enter name: ");
-            String name = sc.nextLine();
-            System.out.print("Enter password: ");
-            String pass = sc.nextLine();
-            userService.register(name, pass, "student");
-            System.out.println("User registered!");
-        }
+            // === User Operations ===
 
-        System.out.print("Enter login name: ");
-        String uname = sc.nextLine();
-        System.out.print("Enter password: ");
-        String upass = sc.nextLine();
-        loggedInUser = userService.login(uname, upass);
+            // Register a new user
+            String userName = "JohnDoe";
+            String password = "password123";
+            String role = "student";
+            userService.register(userName, password, role);
+            System.out.println("User registered: " + userName);
 
-        if (loggedInUser == null) {
-            System.out.println("Login failed!");
+            // Fetch and print all users
+            List<User> users = userService.getAllUsers();
+            System.out.println("All Users:");
+            for (User user : users) {
+                System.out.println(" - " + user.getName() + " (" + user.getRole() + ")");
+            }
+
+            // === Subject Operations ===
+
+            // Add a new subject
+            String subjectName = "Mathematics";
+            subjectService.saveSubject(subjectName);
+            System.out.println("Subject added: " + subjectName);
+
+            // Fetch and print all subjects
+            List<Subject> subjects = subjectService.getAllSubjects();
+            System.out.println("All Subjects:");
+            for (Subject subject : subjects) {
+                System.out.println(" - " + subject.getName());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Step 4 – Close the session factory
             sessionFactory.close();
-            return;
         }
-
-        // Show subjects
-        System.out.println("Choose a subject:");
-        var subjects = subjectService.getAllSubjects();
-        for (int i = 0; i < subjects.size(); i++) {
-            System.out.println((i + 1) + ". " + subjects.get(i).getName());
-        }
-        int subChoice = sc.nextInt();
-        String subjectId = subjects.get(subChoice - 1).getId();
-
-        Quiz quiz = quizService.startQuiz(subjectId, "Maths Quiz");
-        int score = 0;
-
-        // pass the selected subject choice index to the existing method signature
-        for (var q : quizService.getQuestionsForSubject(subChoice)) {
-            System.out.println(q.getQuestionText());
-            // Add user input logic to record answers
-        }
-
-        resultService.saveResult(loggedInUser.getId(), quiz.getId(), score);
-        System.out.println("Your score: " + score);
-
-        // Close resources
-        sc.close();
-        sessionFactory.close();
     }
 }

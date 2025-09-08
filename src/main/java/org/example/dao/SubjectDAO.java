@@ -10,4 +10,5 @@ public interface SubjectDAO {
     void update(Subject subject) ;
     Subject findById(int id) ;
     List<Subject> getAllSubjects();
+    List<Subject> findAll();
 }

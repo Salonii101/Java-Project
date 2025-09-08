@@ -1,28 +1,65 @@
-package org.example.services;
-
-import org.example.Utils.Question;
-import org.example.dao.QuestionDAO;
-import org.example.dao.QuizDAO;
-import org.example.dao.QuizImpl;
-import org.example.dao.impl.QuestionImpl;
-import org.example.models.Questions;
-import org.example.models.Quiz;
-
-import java.util.List;
-
-public class QuizService {
-    private final QuestionDAO questionDAO = new QuestionImpl();
-    private final QuizDAO quizDAO = new QuizImpl();
-
-    public Quiz startQuiz(int subjectId, String title) {
-        Quiz quiz = new Quiz();
-        quiz.setSubjectId(subjectId);
-        quiz.setTitle(title);
-        quizDAO.save(quiz);
-        return quiz;
-    }
-
-    public List<Question> getQuestionsForSubject(int subjectId) {
-        return questionDAO.getQuestionsBySubject(subjectId);
-    }
-}
+//package org.example.services;
+//
+//import org.example.dao.QuizDAO;
+//import org.example.models.Quiz;
+//
+//import java.util.List;
+//
+//public class QuizService {
+//
+//    private final QuizDAO quizDAO;
+//
+//    public QuizService(QuizDAO quizDAO) {
+//        this.quizDAO = quizDAO;
+//    }
+//
+//    /**
+//     * Save a new quiz.
+//     */
+//    public void saveQuiz(Quiz quiz) {
+//        quizDAO.save(quiz);
+//    }
+//
+//    /**
+//     * Update an existing quiz.
+//     */
+//    public void updateQuiz(Quiz quiz) {
+//        quizDAO.update(quiz);
+//    }
+//
+//    /**
+//     * Delete a quiz.
+//     */
+//    public void deleteQuiz(Quiz quiz) {
+//        quizDAO.delete(quiz);
+//    }
+//
+//    /**
+//     * Find a quiz by its ID.
+//     */
+//    public Quiz findQuizById(int id) {
+//        return quizDAO.findById(id);
+//    }
+//
+//    /**
+//     * Get all quizzes.
+//     */
+//    public List<Quiz> findAllQuizzes() {
+//        return quizDAO.findAll();
+//    }
+//
+//    /**
+//     * Get quizzes filtered by subject ID.
+//     * This assumes you either implement this in DAO or filter it here.
+//     */
+//    public List<Quiz> findQuizzesBySubject(int subjectId) {
+//        // Get all quizzes from the DAO
+//        List<Quiz> allQuizzes = quizDAO.findAll();
+//
+//        // Filter by subjectId
+//        return allQuizzes.stream()
+//                .filter(quiz -> quiz.getSubject() != null && quiz.getSubject().getId() == subjectId)
+//                .toList();
+//    }
+//
+//}

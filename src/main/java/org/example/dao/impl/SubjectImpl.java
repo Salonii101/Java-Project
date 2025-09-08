@@ -55,7 +55,14 @@ public class SubjectImpl implements SubjectDAO {
     @Override
     public Subject findById(int id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Subject.class, id);
+            return session.find(Subject.class, id);
+        }
+    }
+
+    @Override
+    public List<Subject> getAllSubjects() {
+        try(Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Subject", Subject.class).getResultList() ;
         }
     }
 

@@ -11,9 +11,9 @@ import java.util.List;
 
 public class QuestionImpl implements QuestionDAO {
 
-    private final SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory ;
 
-    public QuestionImpl() {
+    public QuestionImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -59,7 +59,7 @@ public class QuestionImpl implements QuestionDAO {
     @Override
     public Question findById(int id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Question.class, id);
+            return session.find(Question.class, id);
         }
     }
 
@@ -76,6 +76,14 @@ public class QuestionImpl implements QuestionDAO {
             return session.createQuery("from Question q where q.quiz.id = :quizId", Question.class)
                     .setParameter("quizId", quizId)
                     .list();
+        }
+    }
+
+    @Override
+    public List<Question> getQuestionsBySubject(int subjectId) {
+        try(Session session = sessionFactory.openSession()){
+            return session.createQuery("FROM Question q WHERE q.subjectId = :subjectId", Question.class)
+                    .setParameter("subjectId",subjectId).getResultList() ;
         }
     }
 }

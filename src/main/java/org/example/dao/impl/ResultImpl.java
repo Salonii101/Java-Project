@@ -54,7 +54,7 @@ public class ResultImpl implements ResultDAO {
     @Override
     public Result findById(int id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Result.class, id);
+            return session.find(Result.class ,id);
         }
     }
 

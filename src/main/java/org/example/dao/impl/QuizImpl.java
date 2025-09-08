@@ -1,5 +1,6 @@
-package org.example.dao;
+package org.example.dao.impl;
 
+import org.example.dao.QuizDAO;
 import org.example.models.Quiz;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,7 +12,7 @@ public class QuizImpl implements QuizDAO {
 
     private final SessionFactory sessionFactory;
 
-    public QuizImpl() {
+    public QuizImpl(SessionFactory sessionFactory ) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -54,7 +55,7 @@ public class QuizImpl implements QuizDAO {
     @Override
     public Quiz findById(int id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Quiz.class, id);
+            return session.find(Quiz.class, id);
         }
     }
 
