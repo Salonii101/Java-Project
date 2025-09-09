@@ -37,9 +37,9 @@ public class Main {
             SubjectService subjectService = new SubjectService(subjectDAO);
 
             // === User Operations ===
-            String userName = "JohnDoe";
-            String password = "password123";
-            String role = "student";
+            String userName = "Alice";
+            String password = "securePass123";
+            String role = "admin";
             userService.register(userName, password, role);
             System.out.println("User registered: " + userName);
 
@@ -50,7 +50,7 @@ public class Main {
             }
 
             // === Subject Operations ===
-            String subjectName = "Mathematics";
+            String subjectName = "Physics";
             subjectService.saveSubject(subjectName);
             System.out.println("Subject added: " + subjectName);
 

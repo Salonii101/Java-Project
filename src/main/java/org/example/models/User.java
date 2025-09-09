@@ -3,8 +3,9 @@ package org.example.models;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 import java.util.List;
+import java.util.UUID;
 
-@Entity 
+@Entity
 @Table(name = "users") // "user" reserved in SQL
 public class User {
 
@@ -12,7 +13,7 @@ public class User {
     @GeneratedValue
     @UuidGenerator
     @Column(name = "id", updatable = false, nullable = false, length = 36)
-    private String id;
+    private UUID id;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -40,8 +41,8 @@ public class User {
     }
 
     // Getters & Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
