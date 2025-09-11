@@ -25,8 +25,6 @@ public class Auth {
 
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         cfg.addAnnotatedClass(User.class);
-
-
         SessionFactory sessionFactory = cfg.buildSessionFactory() ;
         try {
             UserDAO userDAO = new UserImpl(sessionFactory);
@@ -40,7 +38,7 @@ public class Auth {
             String hashedPassword = hashPassword(password);
             String userId = "U" + UUID.randomUUID().toString().substring(0,12) ;
 
-            UserService.register(name,hashedPassword,"Admin") ;
+            userService.register(name,hashedPassword,"Admin") ;
 
 
             currentUserId = userId;
@@ -48,34 +46,45 @@ public class Auth {
 
             System.out.println("Registration successful! Your User ID is: " + userId);
             return userId;
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+            sessionFactory.close();
         }
     }
 
-//    public static boolean login(Scanner scanner) throws IOException {
-//        System.out.print("Enter User ID: ");
-//        String userId = scanner.nextLine();
-//        System.out.print("Enter Password: ");
-//        String password = scanner.nextLine();
-//
-//        String hashedPassword = hashPassword(password);
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader(PathFile.USER_FILE))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                String[] parts = line.split(",");
-//                if (parts.length == 3 && parts[0].equals(userId) && parts[1].equals(hashedPassword)) {
-//                    currentUserId = parts[0];
-//                    currentUserName = parts[2];
-//                    System.out.println("Welcome, " + currentUserName + "!");
-//                    return true;
-//                }
-//            }
-//        }
-//        System.out.println("Invalid User ID or Password.");
-//        return false;
-//    }
+    public static boolean login(Scanner scanner) {
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+        cfg.addAnnotatedClass(User.class);
+        SessionFactory sessionFactory = cfg.buildSessionFactory();
+
+        try {
+            UserDAO userDAO = new UserImpl(sessionFactory);
+            UserService userService = new UserService(userDAO);
+
+            System.out.print("Enter your name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
+
+            User user = userService.login(name, password);
+
+            if (user != null) {
+                currentUserId = String.valueOf(user.getId());
+                currentUserName = user.getName();
+                System.out.println("Login successful! Welcome, " + currentUserName);
+                return true;
+            } else {
+                System.out.println("Invalid username or password.");
+                return false;
+            }
+
+        } finally {
+            sessionFactory.close();
+        }
+    }
 
     private static String hashPassword(String password) {
         try {

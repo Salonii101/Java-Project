@@ -19,7 +19,7 @@ public class UserService {
      * Registers a new user.
      * Hashes the password and saves the user in the database.
      */
-    public static void register(String name, String password, String role) throws Exception {
+    public void register(String name, String password, String role) throws Exception {
         if (isUserExists(name)) {
             throw new Exception("User already exists with this name.");
         }
