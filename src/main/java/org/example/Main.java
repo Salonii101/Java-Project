@@ -36,6 +36,7 @@ public class Main {
             UserService userService = new UserService(userDAO);
             SubjectService subjectService = new SubjectService(subjectDAO);
 
+
             // === User Operations ===
             String userName = "Alice";
             String password = "securePass123";
