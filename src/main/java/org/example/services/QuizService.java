@@ -2,6 +2,7 @@ package org.example.services;
 
 import org.example.dao.QuizDAO;
 import org.example.models.Quiz;
+import org.example.models.User;
 
 import java.util.List;
 

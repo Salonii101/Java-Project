@@ -29,10 +29,7 @@ public class UserService {
         userDAO.save(user);
     }
 
-    /**
-     * Logs in a user by verifying the password.
-     * Returns the user object if successful, otherwise null.
-     */
+
     public User login(String name, String password) {
         List<User> users = userDAO.findAll(); // or use a findByName() method if implemented
         for (User user : users) {

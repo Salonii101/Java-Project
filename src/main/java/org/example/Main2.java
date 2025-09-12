@@ -3,6 +3,8 @@ package org.example ;
 import org.example.models.User;
 import org.example.services.UserService;
 import org.example.Utils.Auth ;
+import org.example.models.* ;
+import org.example.services.* ;
 import java.util.List;
 import java.util.Scanner;
 
