@@ -25,11 +25,11 @@ public class User {
     private String role;
 
     // Relationships
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Quiz> quizzes;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Quiz> quizzes;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Result> results;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Result> results;
 
     // Constructors
     public User() {}
@@ -53,9 +53,9 @@ public class User {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    public List<Quiz> getQuizzes() { return quizzes; }
-    public void setQuizzes(List<Quiz> quizzes) { this.quizzes = quizzes; }
+//    public List<Quiz> getQuizzes() { return quizzes; }
+//    public void setQuizzes(List<Quiz> quizzes) { this.quizzes = quizzes; }
 
-    public List<Result> getResults() { return results; }
-    public void setResults(List<Result> results) { this.results = results; }
+//    public List<Result> getResults() { return results; }
+//    public void setResults(List<Result> results) { this.results = results; }
 }

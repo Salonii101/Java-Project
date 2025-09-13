@@ -1,4 +1,4 @@
-package org.example.dao.impl ;
+package org.example.dao.impl;
 
 import org.example.dao.UserDAO;
 import org.example.models.User;
@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.UUID;
 
 public class UserImpl implements UserDAO {
 
@@ -23,6 +24,7 @@ public class UserImpl implements UserDAO {
             tx = session.beginTransaction();
             session.persist(user);
             tx.commit();
+            System.out.println("✅ User saved: " + user.getName());
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
@@ -36,6 +38,7 @@ public class UserImpl implements UserDAO {
             tx = session.beginTransaction();
             session.merge(user);
             tx.commit();
+            System.out.println("✅ User updated: " + user.getName());
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
@@ -49,6 +52,7 @@ public class UserImpl implements UserDAO {
             tx = session.beginTransaction();
             session.remove(user);
             tx.commit();
+            System.out.println("✅ User deleted: " + user.getName());
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
@@ -58,7 +62,7 @@ public class UserImpl implements UserDAO {
     @Override
     public User findById(String id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.find(User.class, id);
+            return session.find(User.class, UUID.fromString(id));
         }
     }
 
@@ -68,5 +72,4 @@ public class UserImpl implements UserDAO {
             return session.createQuery("from User", User.class).list();
         }
     }
-
 }

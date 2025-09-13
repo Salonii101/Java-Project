@@ -9,6 +9,4 @@ public interface UserDAO {
     void delete(User user);
     User findById(String id);
     List<User> findAll();
-
-
 }

@@ -1,56 +1,52 @@
 package org.example.Utils;
 
-import java.io.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.example.dao.UserDAO;
-import org.example.dao.SubjectDAO;
 import org.example.dao.impl.UserImpl;
-import org.example.dao.impl.SubjectImpl;
-import org.example.models.*;
+import org.example.models.User;
 import org.example.services.UserService;
-import org.example.services.SubjectService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Auth {
-   // private static final String FILE_NAME = "users.txt";
     private static String currentUserId = "";
     private static String currentUserName = "";
 
-    public static String register(Scanner scanner) throws IOException {
-
+    public static String register(Scanner scanner) {
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         cfg.addAnnotatedClass(User.class);
-        SessionFactory sessionFactory = cfg.buildSessionFactory() ;
+        SessionFactory sessionFactory = cfg.buildSessionFactory();
+
         try {
             UserDAO userDAO = new UserImpl(sessionFactory);
             UserService userService = new UserService(userDAO);
 
             System.out.print("Enter your name: ");
-            String name = scanner.nextLine();
+            String name = scanner.nextLine().trim();
             System.out.print("Create a password: ");
             String password = scanner.nextLine();
+            System.out.print("Enter role:  ");
+            String role = scanner.nextLine();
 
-            String hashedPassword = hashPassword(password);
-            String userId = "U" + UUID.randomUUID().toString().substring(0,12) ;
+            // UserService will hash with BCrypt and persist
+            userService.register(name, password, role); // or "admin", depending on UI
 
-            userService.register(name,hashedPassword,"Admin") ;
+            // fetch the persisted user to get DB-generated UUID
+            User registeredUser = userDAO.findAll().stream()
+                    .filter(u -> u.getName().equalsIgnoreCase(name))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Registered user not found"));
 
+            currentUserId = registeredUser.getId().toString();
+            currentUserName = registeredUser.getName();
 
-            currentUserId = userId;
-            currentUserName = name;
-
-            System.out.println("Registration successful! Your User ID is: " + userId);
-            return userId;
-
+            System.out.println("Registration successful! Your User ID is: " + currentUserId);
+            return currentUserId;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             sessionFactory.close();
         }
     }
@@ -65,14 +61,14 @@ public class Auth {
             UserService userService = new UserService(userDAO);
 
             System.out.print("Enter your name: ");
-            String name = scanner.nextLine();
+            String name = scanner.nextLine().trim();
             System.out.print("Enter your password: ");
             String password = scanner.nextLine();
 
             User user = userService.login(name, password);
 
             if (user != null) {
-                currentUserId = String.valueOf(user.getId());
+                currentUserId = user.getId().toString();
                 currentUserName = user.getName();
                 System.out.println("Login successful! Welcome, " + currentUserName);
                 return true;
@@ -80,30 +76,12 @@ public class Auth {
                 System.out.println("Invalid username or password.");
                 return false;
             }
-
         } finally {
             sessionFactory.close();
         }
     }
 
-    private static String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 not available.");
-        }
-    }
-    // Required for QuizApp.java to access logged-in user details
-    public static String getCurrentUserId() {
-    return currentUserId;
-}
-    public static String getCurrentUserName() {
-    return currentUserName;
-}
+    // Accessors
+    public static String getCurrentUserId() { return currentUserId; }
+    public static String getCurrentUserName() { return currentUserName; }
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Questions")
-public class Questions {
+public class Question {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,8 @@ public class Questions {
         @Column(name="CorrectOption",length = 2, nullable = false)
         private char correctOption;
 
-        public Questions() {}
-        public Questions(int id, Subject subject , String questionText,
+        public Question() {}
+        public Question(int id, Subject subject , String questionText,
                         String optionA, String optionB, String optionC, String optionD, char correctOption) {
             this.id = id;
             this.subject = subject;

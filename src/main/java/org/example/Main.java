@@ -22,7 +22,7 @@ public class Main {
         cfg.addAnnotatedClass(User.class);
         cfg.addAnnotatedClass(Subject.class);
         cfg.addAnnotatedClass(Quiz.class);
-        cfg.addAnnotatedClass(Questions.class);
+        cfg.addAnnotatedClass(Question.class);
         cfg.addAnnotatedClass(Result.class);
 
         SessionFactory sessionFactory = cfg.buildSessionFactory();

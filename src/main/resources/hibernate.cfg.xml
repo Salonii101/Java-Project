@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <hibernate-configuration>
     <session-factory>
 
@@ -14,6 +12,10 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
+
+        <!-- Register entities -->
+        <mapping class="org.example.models.User"/>
+        <!-- later add: <mapping class="org.example.models.Quiz"/> etc. -->
 
     </session-factory>
 </hibernate-configuration>
