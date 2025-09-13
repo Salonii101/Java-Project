@@ -1,21 +1,18 @@
 <hibernate-configuration>
     <session-factory>
+        <!-- JDBC connection settings -->
+        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
+        <property name="hibernate.connection.username">QuizApp</property>
+        <property name="hibernate.connection.password">manager</property>
 
-        <!-- PostgreSQL JDBC connection settings -->
-        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/quizapp</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">PostSequel</property>
+        <!-- SQL Dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
 
-        <!-- Hibernate settings -->
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <!-- Schema update option -->
         <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Show SQL in logs -->
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
-
-        <!-- Register entities -->
-        <mapping class="org.example.models.User"/>
-        <!-- later add: <mapping class="org.example.models.Quiz"/> etc. -->
-
     </session-factory>
 </hibernate-configuration>
