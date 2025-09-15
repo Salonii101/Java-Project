@@ -23,16 +23,6 @@
             <version>23.2.0.0</version>
         </dependency>
 
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.18</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.mindrot.bcrypt/bcrypt -->
-        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
         <dependency>
             <groupId>at.favre.lib</groupId>
             <artifactId>bcrypt</artifactId>
