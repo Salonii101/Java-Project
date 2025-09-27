@@ -1,7 +1,8 @@
 package org.example.dao;
 
-import org.example.models.Result;
 import java.util.List;
+
+import org.example.models.Result;
 
 public interface ResultDAO {
     void save(Result result);

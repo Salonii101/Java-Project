@@ -1,12 +1,12 @@
-package org.example.dao.impl ;
+package org.example.dao.impl;
+
+import java.util.List;
 
 import org.example.dao.SubjectDAO;
 import org.example.models.Subject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import java.util.List;
 
 public class SubjectImpl implements SubjectDAO {
 
@@ -19,65 +19,44 @@ public class SubjectImpl implements SubjectDAO {
     @Override
     public void save(Subject subject) {
         Transaction tx = null;
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
             session.persist(subject);
             tx.commit();
+            System.out.println("✅ Saved subject: " + subject.getName());
         } catch (Exception e) {
-            if (tx != null) {
-                try {
-                    tx.rollback();
-                } catch (Exception rollbackEx) {
-                    rollbackEx.printStackTrace();
-                }
-            }
+            if (tx != null && tx.isActive()) tx.rollback();
             e.printStackTrace();
-        } finally {
-            if (session != null) session.close();
         }
     }
-
 
     @Override
     public void update(Subject subject) {
         Transaction tx = null;
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
             session.merge(subject);
             tx.commit();
+            System.out.println("✅ Subject updated: " + subject.getName());
         } catch (Exception e) {
-            if (tx != null) {
-                try { tx.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
-            }
+            if (tx != null && tx.isActive()) tx.rollback();
             e.printStackTrace();
-        } finally {
-            if (session != null) session.close();
         }
     }
 
     @Override
     public void delete(Subject subject) {
         Transaction tx = null;
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
             session.remove(subject);
             tx.commit();
+            System.out.println("✅ Subject deleted: " + subject.getName());
         } catch (Exception e) {
-            if (tx != null) {
-                try { tx.rollback(); } catch (Exception ex) { ex.printStackTrace(); }
-            }
+            if (tx != null && tx.isActive()) tx.rollback();
             e.printStackTrace();
-        } finally {
-            if (session != null) session.close();
         }
     }
-
 
     @Override
     public Subject findById(int id) {
@@ -88,15 +67,14 @@ public class SubjectImpl implements SubjectDAO {
 
     @Override
     public List<Subject> getAllSubjects() {
-        try(Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM Subject", Subject.class).getResultList() ;
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Subject", Subject.class).list();
         }
     }
 
     @Override
     public List<Subject> findAll() {
-        try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Subject", Subject.class).list();
-        }
+        // Optional: reuse getAllSubjects or implement separately
+        return getAllSubjects();
     }
 }

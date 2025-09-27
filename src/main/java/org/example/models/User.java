@@ -1,9 +1,14 @@
 package org.example.models;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
-import java.util.List;
 import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users") // "user" reserved in SQL
@@ -47,12 +52,13 @@ public class User {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public String getHashPassword() { return hashPassword; }
-    public void setHashPassword(String hashPassword) { this.hashPassword = hashPassword; }
-
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
+    public String getHashPassword() { return hashPassword; }
+    public void setHashPassword(String hashPassword) { this.hashPassword = hashPassword; }
+
+    
 //    public List<Quiz> getQuizzes() { return quizzes; }
 //    public void setQuizzes(List<Quiz> quizzes) { this.quizzes = quizzes; }
 

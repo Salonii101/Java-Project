@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.Utils.Auth;
-import org.hibernate.cfg.Configuration;
 import java.util.Scanner;
+
+import org.example.Utils.Auth;
 
 public class UserTestApp {
     public static void main(String[] args) {

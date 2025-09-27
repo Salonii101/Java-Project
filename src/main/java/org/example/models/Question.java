@@ -1,113 +1,88 @@
 package org.example.models;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Questions")
+@Table(name = "questions") // lowercase to follow standard naming
 public class Question {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-        @ManyToOne
-        @JoinColumn(name = "subject_id", nullable = false)
-        private Subject subject;// FK to Subject
-        @Column(name="questionText", length = 100 , nullable = false)
-        private String questionText;
+    @ManyToOne(fetch = FetchType.EAGER) // always good to specify fetch type
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject; // FK to Subject
 
-        @Column(name="OptionA",length = 2, nullable = false)
-        private String optionA;
-        @Column(name="OptionB",length = 2, nullable = false)
-        private String optionB;
-        @Column(name="OptionC",length = 2, nullable = false)
-        private String optionC;
-        @Column(name="OptionD",length = 2, nullable = false)
-        private String optionD;
-        @Column(name="CorrectOption",length = 2, nullable = false)
-        private char correctOption;
+    @Column(name = "question_text", length = 255, nullable = false)
+    private String questionText;
 
-        public Question() {}
-        public Question(int id, Subject subject , String questionText,
-                        String optionA, String optionB, String optionC, String optionD, char correctOption) {
-            this.id = id;
-            this.subject = subject;
-            this.questionText = questionText;
-            this.optionA = optionA;
-            this.optionB = optionB;
-            this.optionC = optionC;
-            this.optionD = optionD;
-            this.correctOption = correctOption;
-        }
+    @Column(name = "option_a", length = 50, nullable = false)
+    private String optionA;
 
-        // getters & setters
+    @Column(name = "option_b", length = 50, nullable = false)
+    private String optionB;
 
+    @Column(name = "option_c", length = 50, nullable = false)
+    private String optionC;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "option_d", length = 50, nullable = false)
+    private String optionD;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(name = "correct_option", length = 1, nullable = false)
+    private char correctOption;
 
-    public Subject getSubjectId() {
-        return subject;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "quiz_id", nullable = false) // FK to Quiz
+    private Quiz quiz;
 
-    public void setSubject(Subject subject) {
+    // Constructors
+    public Question() {}
+
+    public Question(Subject subject, Quiz quiz, String questionText,
+                    String optionA, String optionB, String optionC, String optionD, char correctOption) {
         this.subject = subject;
-    }
-
-    public String getOptionA() {
-        return optionA;
-    }
-
-    public void setOptionA(String optionA) {
+        this.quiz = quiz;
+        this.questionText = questionText;
         this.optionA = optionA;
-    }
-
-    public String getOptionB() {
-        return optionB;
-    }
-
-    public void setOptionB(String optionB) {
         this.optionB = optionB;
-    }
-
-    public String getOptionC() {
-        return optionC;
-    }
-
-    public void setOptionC(String optionC) {
         this.optionC = optionC;
-    }
-
-    public String getOptionD() {
-        return optionD;
-    }
-
-    public void setOptionD(String optionD) {
         this.optionD = optionD;
-    }
-
-    public char getCorrectOption() {
-        return correctOption;
-    }
-
-    public void setCorrectOption(char correctOption) {
         this.correctOption = correctOption;
     }
 
-    public String getQuestionText() {
-        return questionText;
-    }
+    // Getters & Setters
+    public int getId() { return id; }
 
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
-    }
+    public Subject getSubject() { return subject; }
+    public void setSubject(Subject subject) { this.subject = subject; }
 
+    public Quiz getQuiz() { return quiz; }
+    public void setQuiz(Quiz quiz) { this.quiz = quiz; }
 
+    public String getQuestionText() { return questionText; }
+    public void setQuestionText(String questionText) { this.questionText = questionText; }
+
+    public String getOptionA() { return optionA; }
+    public void setOptionA(String optionA) { this.optionA = optionA; }
+
+    public String getOptionB() { return optionB; }
+    public void setOptionB(String optionB) { this.optionB = optionB; }
+
+    public String getOptionC() { return optionC; }
+    public void setOptionC(String optionC) { this.optionC = optionC; }
+
+    public String getOptionD() { return optionD; }
+    public void setOptionD(String optionD) { this.optionD = optionD; }
+
+    public char getCorrectOption() { return correctOption; }
+    public void setCorrectOption(char correctOption) { this.correctOption = correctOption; }
 }
-

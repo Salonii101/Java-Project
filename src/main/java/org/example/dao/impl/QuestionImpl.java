@@ -1,12 +1,12 @@
 package org.example.dao.impl;
 
+import java.util.List;
+
 import org.example.dao.QuestionDAO;
 import org.example.models.Question;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import java.util.List;
 
 public class QuestionImpl implements QuestionDAO {
 
@@ -17,73 +17,105 @@ public class QuestionImpl implements QuestionDAO {
     }
 
     @Override
-    public void save(Question question) {
-        Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
-            tx = session.beginTransaction();
-            session.persist(question);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        }
+public void save(Question question) {
+    Transaction tx = null;
+    Session session = null;
+    try {
+        session = sessionFactory.openSession();
+        tx = session.beginTransaction();
+
+        session.persist(question);
+
+        tx.commit();
+        System.out.println("✅ Question saved: " + question.getId());
+    } catch (Exception e) {
+        if (tx != null && tx.isActive()) tx.rollback();
+        e.printStackTrace();
+    } finally {
+        if (session != null) session.close();
     }
+}
+
 
     @Override
     public void update(Question question) {
         Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.merge(question);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null && tx.isActive()) tx.rollback();
             e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public void delete(Question question) {
         Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             tx = session.beginTransaction();
             session.remove(question);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null && tx.isActive()) tx.rollback();
             e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public Question findById(int id) {
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             return session.find(Question.class, id);
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public List<Question> findAll() {
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             return session.createQuery("from Question", Question.class).list();
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public List<Question> findByQuizId(int quizId) {
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             return session.createQuery("from Question q where q.quiz.id = :quizId", Question.class)
                     .setParameter("quizId", quizId)
                     .list();
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public List<Question> getQuestionsBySubject(int subjectId) {
-        try (Session session = sessionFactory.openSession()) {
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
             return session.createQuery("from Question q where q.subject.id = :subjectId", Question.class)
                     .setParameter("subjectId", subjectId)
-                    .getResultList();
+                    .list();
+        } finally {
+            if (session != null) session.close();
         }
     }
 }
