@@ -1,58 +1,40 @@
 package org.example.services;
 
-import org.example.dao.SubjectDAO;
+
 import org.example.models.Subject;
+import org.example.repository.SubjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SubjectService {
 
-    private final SubjectDAO subjectDAO;
+    @Autowired
+    private SubjectRepository subjectRepository ;
 
-    public SubjectService(SubjectDAO subjectDAO) {
-        this.subjectDAO = subjectDAO;
+    public Subject saveOrUpdateSubject(Subject subject) {
+        return subjectRepository.save(subject);
     }
 
-    /**
-     * Save a new subject.
-     */
-    public void saveSubject(String name) {
-        Subject subject = new Subject(name);
-        subjectDAO.save(subject);
-    }
-
-    /**
-     * Update an existing subject.
-     */
-    public void updateSubject(Subject subject) {
-        subjectDAO.update(subject);
-    }
-
-    /**
-     * Delete a subject.
-     */
+    // Delete a subject by entity
     public void deleteSubject(Subject subject) {
-        subjectDAO.delete(subject);
+        subjectRepository.delete(subject);
     }
 
-    /**
-     * Find a subject by ID.
-     */
+    // Delete by ID
+    public void deleteSubjectById(int id) {
+        subjectRepository.deleteById(id);
+    }
+
+    // Find a subject by ID
     public Subject findSubjectById(int id) {
-        return subjectDAO.findById(id);
+        return subjectRepository.findById(id).orElse(null) ;
     }
 
-    /**
-     * Get all subjects.
-     */
+    // Get all subjects
     public List<Subject> getAllSubjects() {
-        return subjectDAO.getAllSubjects();
-    }
-
-    /**
-     * Find all subjects (alternative method if needed).
-     */
-    public List<Subject> findAllSubjects() {
-        return subjectDAO.findAll();
+        return subjectRepository.findAll();
     }
 }

@@ -1,56 +1,43 @@
 package org.example.services;
 
-import org.example.dao.ResultDAO;
+import org.example.repository.ResultRepository ;
 import org.example.models.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ResultService {
 
-    private final ResultDAO resultDAO;
+    @Autowired
+    private ResultRepository resultRepository ;
 
-    public ResultService(ResultDAO resultDAO) {
-        this.resultDAO = resultDAO;
+    public Result saveUpdateResult(Result result) {
+        return resultRepository.save(result) ;
     }
 
-    // Save a result
-    public void saveResult(Result result) {
-        resultDAO.save(result);
-    }
-
-    // Update an existing result
-    public void updateResult(Result result) {
-        resultDAO.update(result);
-    }
 
     // Delete a result
     public void deleteResult(Result result) {
-        resultDAO.delete(result);
+        resultRepository.delete(result);
     }
 
     // Find a result by ID
     public Result findResultById(int id) {
-        return resultDAO.findById(id);
+        return resultRepository.findById(id).orElse(null);
     }
 
-    // Get all results
     public List<Result> getAllResults() {
-        return resultDAO.findAll();
+        return resultRepository.findAll() ;
     }
 
-    // Additional business logic methods can be added here
-
-    // Example: Get results by user ID
     public List<Result> getResultsByUser(String userId) {
-        return resultDAO.findAll().stream()
-                .filter(result -> result.getUser().getId().equals(userId))
-                .toList();
+        return resultRepository.findByUserId(userId);
     }
 
-    // Example: Get results by quiz ID
+    // Get results by quiz ID
     public List<Result> getResultsByQuiz(int quizId) {
-        return resultDAO.findAll().stream()
-                .filter(result -> result.getQuiz().getId() == quizId)
-                .toList();
+        return resultRepository.findByQuizId(quizId);
     }
 }

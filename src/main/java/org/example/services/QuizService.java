@@ -1,46 +1,45 @@
 package org.example.services;
 
-import org.example.dao.QuizDAO;
 import org.example.models.Quiz;
-import org.example.models.User;
+import org.example.repository.QuizRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class QuizService {
 
-    private final QuizDAO quizDAO;
+    @Autowired
+    private QuizRepository quizRepository;
 
-    public QuizService(QuizDAO quizDAO) {
-        this.quizDAO = quizDAO;
+    // Save or update a quiz
+    public Quiz saveOrUpdateQuiz(Quiz quiz) {
+        return quizRepository.save(quiz); // handles both save & update
     }
 
-    // Save a new quiz
-    public void saveQuiz(Quiz quiz) {
-        quizDAO.save(quiz);
-    }
-
-    // Update an existing quiz
-    public void updateQuiz(Quiz quiz) {
-        quizDAO.update(quiz);
-    }
-
-    // Delete a quiz
+    // Delete a quiz by entity
     public void deleteQuiz(Quiz quiz) {
-        quizDAO.delete(quiz);
+        quizRepository.delete(quiz);
+    }
+
+    // Delete by ID
+    public void deleteQuizById(int id) {
+        quizRepository.deleteById(id);
     }
 
     // Find a quiz by ID
     public Quiz findQuizById(int id) {
-        return quizDAO.findById(id);
+        return quizRepository.findById(id).orElse(null) ;
     }
 
     // Get all quizzes
     public List<Quiz> getAllQuizzes() {
-        return quizDAO.findAll();
+        return quizRepository.findAll();
     }
 
-//    public List<Quiz> getQuizzesBySubject(int subjectId) {
-//            return quizDAO.findBySubjectId(subjectId);
-//    }
-
+    // Optional: get quizzes by subject
+    public List<Quiz> getQuizzesBySubject(int subjectId) {
+        return quizRepository.findBySubjectId(subjectId);
+    }
 }

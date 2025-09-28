@@ -1,25 +1,22 @@
 package org.example.services;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import org.example.dao.UserDAO;
 import org.example.models.User;
+import org.example.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class UserService {
 
-    private final UserDAO userDAO;
+    @Autowired
+    private UserRepository userRepository;
 
-    // Constructor: inject the DAO implementation
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    /**
-     * Registers a new user.
-     * Hashes the password with BCrypt and saves the user in the database.
-     */
-    public void register(String name, String password, String role) throws Exception {
+    // Register new user
+    public User register(String name, String password, String role) throws Exception {
         if (isUserExists(name)) {
             throw new Exception("User already exists with this name.");
         }
@@ -30,44 +27,49 @@ public class UserService {
         user.setHashPassword(hashedPassword);
         user.setRole(role);
 
-        userDAO.save(user);
+        return userRepository.save(user);
     }
 
-    /**
-     * Login: find user by name and verify password.
-     */
+    // Login: find user by name and verify password
     public User login(String name, String password) {
-        List<User> users = userDAO.findAll();
-        for (User user : users) {
-            if (user.getName().equalsIgnoreCase(name)) {
-                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getHashPassword());
-                if (result.verified) {
-                    return user;
-                }
-                break;
+        Optional<User> optionalUser = userRepository.findByNameIgnoreCase(name);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getHashPassword());
+            if (result.verified) {
+                return user;
             }
         }
         return null;
     }
 
+    // Check if user exists
     public boolean isUserExists(String name) {
-        List<User> users = userDAO.findAll();
-        return users.stream().anyMatch(user -> user.getName().equalsIgnoreCase(name));
+        return userRepository.findByNameIgnoreCase(name).isPresent();
     }
 
+    // Get all users
     public List<User> getAllUsers() {
-        return userDAO.findAll();
+        return userRepository.findAll();
     }
 
+    // Get user by ID
     public User getUserById(String id) {
-        return userDAO.findById(id);
+        return userRepository.findById(Integer.valueOf(id)).orElse(null);
     }
 
-    public void updateUser(User user) {
-        userDAO.update(user);
+    // Update user
+    public User updateUser(User user) {
+        return userRepository.save(user); // save handles both create & update
     }
 
+    // Delete user
     public void deleteUser(User user) {
-        userDAO.delete(user);
+        userRepository.delete(user);
+    }
+
+    // Delete by ID (optional)
+    public void deleteUserById(String id) {
+        userRepository.deleteById(Integer.valueOf(id));
     }
 }

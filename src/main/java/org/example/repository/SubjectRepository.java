@@ -6,8 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface subjectRepository extends JpaRepository{
-    Subject findById(int id) ;
+public interface SubjectRepository extends JpaRepository<Subject,Integer>{
     List<Subject> getAllSubjects();
     List<Subject> findAll();
 }
