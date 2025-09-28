@@ -1,6 +1,7 @@
 package org.example.models;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,10 +18,11 @@ public class Subject {
 
     // One subject can have many quizzes
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Quiz> quizzes;
+    private List<Quiz> quizzes = new ArrayList<>();
 
+    // One subject can have many questions
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
     // Constructors
     public Subject() {}
@@ -38,4 +40,7 @@ public class Subject {
 
     public List<Quiz> getQuizzes() { return quizzes; }
     public void setQuizzes(List<Quiz> quizzes) { this.quizzes = quizzes; }
+
+    public List<Question> getQuestions() { return questions; }
+    public void setQuestions(List<Question> questions) { this.questions = questions; }
 }

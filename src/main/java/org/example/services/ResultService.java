@@ -24,8 +24,9 @@ public class ResultService {
     }
 
     // Find a result by ID
-    public Result findResultById(int id) {
-        return resultRepository.findById(id).orElse(null);
+    public Result findResultById(String id) {
+        java.util.UUID uuid = java.util.UUID.fromString(id);
+        return resultRepository.findById(uuid).orElse(null);
     }
 
     public List<Result> getAllResults() {
@@ -33,7 +34,8 @@ public class ResultService {
     }
 
     public List<Result> getResultsByUser(String userId) {
-        return resultRepository.findByUserId(userId);
+        java.util.UUID uuid = java.util.UUID.fromString(userId);
+        return resultRepository.findByUserId(uuid);
     }
 
     // Get results by quiz ID
