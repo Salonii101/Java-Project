@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID; 
 
 @Repository
-public interface ResultRepository extends JpaRepository<Result,Integer> {
-    List<Result> findByUserId(String userId);
+public interface ResultRepository extends JpaRepository<Result, UUID> {
+    List<Result> findByUserId(UUID userId);
     List<Result> findByQuizId(int quizId);
 }
