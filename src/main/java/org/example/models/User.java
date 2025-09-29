@@ -36,32 +36,4 @@ public class User {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Result> results;
 
-    // Constructors
-    public User() {}
-
-    public User(String name, String hashPassword, String role) {
-        this.name = name;
-        this.hashPassword = hashPassword;
-        this.role = role;
-    }
-
-    // Getters & Setters
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
-
-    public String getHashPassword() { return hashPassword; }
-    public void setHashPassword(String hashPassword) { this.hashPassword = hashPassword; }
-
-    
-//    public List<Quiz> getQuizzes() { return quizzes; }
-//    public void setQuizzes(List<Quiz> quizzes) { this.quizzes = quizzes; }
-
-//    public List<Result> getResults() { return results; }
-//    public void setResults(List<Result> results) { this.results = results; }
 }

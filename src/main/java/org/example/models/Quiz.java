@@ -39,31 +39,4 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Result> results;
 
-    // Constructors
-    public Quiz() {}
-
-    public Quiz(String title, Subject subject, User user) {
-        this.title = title;
-        this.subject = subject;
-        this.user = user;
-    }
-
-    // Getters & Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public Subject getSubject() { return subject; }
-    public void setSubject(Subject subject) { this.subject = subject; }
-
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-
-    public List<Question> getQuestions() { return questions; }
-    public void setQuestions(List<Question> questions) { this.questions = questions; }
-
-    public List<Result> getResults() { return results; }
-    public void setResults(List<Result> results) { this.results = results; }
 }
