@@ -55,7 +55,7 @@ public class UserService {
 
     // Get user by ID
     public User getUserById(String id) {
-    return userRepository.findById(java.util.UUID.fromString(id)).orElse(null);
+        return userRepository.findById(Integer.valueOf(id)).orElse(null);
     }
 
     // Update user
@@ -70,6 +70,6 @@ public class UserService {
 
     // Delete by ID (optional)
     public void deleteUserById(String id) {
-    userRepository.deleteById(java.util.UUID.fromString(id));
+        userRepository.deleteById(Integer.valueOf(id));
     }
 }

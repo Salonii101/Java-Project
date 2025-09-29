@@ -3,8 +3,10 @@ package org.example.repository;
 import org.example.models.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Repository
-public interface SubjectRepository extends JpaRepository<Subject, Integer> {
-    // No need for extra methods; findAll(), save(), deleteById(), etc., are inherited
+public interface SubjectRepository extends JpaRepository<Subject,Integer>{
+    List<Subject> getAllSubjects();
+    List<Subject> findAll();
 }
