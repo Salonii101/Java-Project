@@ -11,9 +11,6 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment PK
     @Column(name = "id")
     private int id;
-        public void setId(int id) {
-            this.id = id;
-        }
 
     @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;

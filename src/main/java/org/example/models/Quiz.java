@@ -21,9 +21,6 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;

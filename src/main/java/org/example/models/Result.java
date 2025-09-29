@@ -13,9 +13,6 @@ public class Result {
     @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
-        public void setId(UUID id) {
-            this.id = id;
-        }
 
     // Many results can belong to one user
     @ManyToOne(fetch = FetchType.LAZY)
