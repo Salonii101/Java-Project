@@ -2,16 +2,15 @@ package org.example.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "result")
 public class Result {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", updatable = false, nullable = false, length = 36)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment PK
+    @Column(name = "id")
+    private int id;
 
     // Relation to User
     @ManyToOne(fetch = FetchType.LAZY)   // Many results can belong to one user
@@ -40,8 +39,8 @@ public class Result {
     }
 
     // Getters & Setters
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
