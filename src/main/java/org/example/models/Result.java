@@ -35,4 +35,29 @@ public class Result {
     @Column(name = "taken_at", nullable = false)
     private LocalDateTime takenAt;
 
+    // ===== Constructors =====
+    public Result() {}
+
+    public Result(User user, Quiz quiz, int score, LocalDateTime takenAt) {
+        this.user = user;
+        this.quiz = quiz;
+        this.score = score;
+        this.takenAt = takenAt;
+    }
+
+    // ===== Getters & Setters =====
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public Quiz getQuiz() { return quiz; }
+    public void setQuiz(Quiz quiz) { this.quiz = quiz; }
+
+    public int getScore() { return score; }
+    public void setScore(int score) { this.score = score; }
+
+    public LocalDateTime getTakenAt() { return takenAt; }
+    public void setTakenAt(LocalDateTime takenAt) { this.takenAt = takenAt; }
 }
