@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Quiz</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="split">
+      <!-- Left hero/branding (optional) -->
+      <div class="hero">
+        <div class="hero__art">
+          <div class="blob b1"></div>
+          <div class="blob b2"></div>
+        </div>
+        <div class="hero__copy">
+          <h1>QuizMaster</h1>
+          <p>Choose your subject and difficulty to start the quiz</p>
+        </div>
+      </div>
+
+      <!-- Right panel for selection -->
+      <div class="panel">
+        <div class="card3d">
+          <div class="face face--front">
+            <h2 style="text-align: center; margin-bottom: 20px">Select Quiz</h2>
+            <div class="form">
+              <div class="field">
+                <select id="subject-select" required>
+                  <option value="" disabled selected>Select Subject</option>
+                  <option value="math">Math</option>
+                  <option value="science">Science</option>
+                  <option value="history">History</option>
+                </select>
+                <!-- <label>Subject</label> -->
+              </div>
+
+              <div class="field">
+                <select id="difficulty" required>
+                  <option value="" disabled selected>Select Difficulty</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+                <!-- <label>Difficulty</label> -->
+              </div>
+
+              <button class="btn" id="start-quiz">Start Quiz</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("start-quiz").addEventListener("click", () => {
+        const difficulty = document.getElementById("difficulty").value;
+        const subject = document.getElementById("subject-select").value;
+
+        if (!difficulty || !subject) {
+          alert("Please select both difficulty and subject!");
+          return;
+        }
+
+        localStorage.setItem("quizDifficulty", difficulty);
+        localStorage.setItem("quizSubject", subject);
+
+        // Redirect to quiz page
+        window.location.href = "quiz.html";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="panel card3d">
+      <div class="face face--front">
+        <div class="form">
+          <h2>Register</h2>
+
+          <div class="field">
+            <input type="text" id="name" placeholder="Name" required />
+            <label>Name</label>
+          </div>
+
+          <div class="field">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            <label>Password</label>
+          </div>
+
+          <div class="field">
+            <select id="role" required>
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+
+          <button class="btn" type="submit" form="registerForm">
+            Register
+          </button>
+
+          <p class="hint">
+            Already have an account? <a href="login.html">Login</a>
+          </p>
+
+          <p id="message" class="hint"></p>
+        </div>
+      </div>
+    </div>
+
+    <form id="registerForm" style="display: none"></form>
+    <script src="js/register.js"></script>
+  </body>
+</html>
