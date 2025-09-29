@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -55,7 +56,8 @@ public class UserService {
 
     // Get user by ID
     public User getUserById(String id) {
-        return userRepository.findById(Integer.valueOf(id)).orElse(null);
+        UUID uuid = UUID.fromString(id);                 // Convert String → UUID
+        return userRepository.findById(uuid).orElse(null);
     }
 
     // Update user
@@ -68,8 +70,9 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    // Delete by ID (optional)
+    // Delete by ID
     public void deleteUserById(String id) {
-        userRepository.deleteById(Integer.valueOf(id));
+        UUID uuid = UUID.fromString(id);                // Convert String → UUID
+        userRepository.deleteById(uuid);
     }
 }

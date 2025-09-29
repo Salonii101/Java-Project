@@ -1,4 +1,4 @@
-package org.example.controllers;
+package org.example.controller;
 
 import org.example.models.Question;
 import org.example.services.QuestionService;
@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/question") // Base path for all question-related endpoints
 public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
 
     /**
+     * Endpoint to get a list of all questions.
      * @return A list of all questions.
      */
     @GetMapping("/all")

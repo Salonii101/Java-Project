@@ -33,7 +33,7 @@ public class ResultController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Result> getResultById(@PathVariable String id) {
-        Result result = resultService.findResultById(id);
+        Result result = resultService.findResultById(Integer.parseInt(id));
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
@@ -82,7 +82,7 @@ public class ResultController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Result> updateResult(@PathVariable String id, @RequestBody Result resultDetails) {
-        if (resultService.findResultById(id) == null) {
+        if (resultService.findResultById(Integer.parseInt(id)) == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     // Use the correct setter from Result entity
@@ -98,7 +98,7 @@ public class ResultController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteResult(@PathVariable String id) {
-        Result result = resultService.findResultById(id);
+        Result result = resultService.findResultById(Integer.parseInt(id));
         if (result == null) {
             return new ResponseEntity<>("Result not found", HttpStatus.NOT_FOUND);
         }
