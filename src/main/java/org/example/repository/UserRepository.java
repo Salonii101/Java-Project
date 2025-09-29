@@ -6,13 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-<<<<<<< HEAD
-public interface UserRepository extends JpaRepository<User, UUID> {
-=======
-public interface UserRepository extends JpaRepository<User,Integer> {
+
+
+public interface UserRepository extends JpaRepository<UUID,Integer> {
     List<User> findAll();
->>>>>>> parent of e24e6b5 (Added all controller classes and updated models, services, and repositories)
     Optional<User> findByNameIgnoreCase(String name);
 }
