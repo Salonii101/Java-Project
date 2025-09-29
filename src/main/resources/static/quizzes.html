@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin - Quizzes</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <button id="logoutBtn" style="float: right">Logout</button>
+    </nav>
+
+    <div class="container">
+      <h2>Manage Quizzes</h2>
+      <button id="addQuizBtn" class="add-btn">Add Quiz</button>
+      <table border="1" id="quizzesTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="quizModal" class="modal">
+      <div class="modal-content">
+        <span class="closeBtn">&times;</span>
+        <h3 id="modalTitle">Add Quiz</h3>
+        <form id="quizForm">
+          <input type="hidden" id="quizId" />
+          <label>Title:</label><br />
+          <input type="text" id="quizTitle" required /><br /><br />
+          <label>Subject ID:</label><br />
+          <input type="number" id="quizSubjectId" required /><br /><br />
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/quizzes.js"></script>
+  </body>
+</html>
