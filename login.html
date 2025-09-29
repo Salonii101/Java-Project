@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="panel card3d">
+      <div class="face face--front">
+        <div class="form">
+          <h2>Login</h2>
+
+          <div class="field">
+            <input type="text" id="name" placeholder="Name" required />
+            <label>Name</label>
+          </div>
+
+          <div class="field">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            <label>Password</label>
+          </div>
+
+          <button class="btn" type="submit" form="loginForm">Login</button>
+
+          <p class="hint">
+            Don't have an account? <a href="register.html">Register</a>
+          </p>
+
+          <p id="message" class="hint"></p>
+        </div>
+      </div>
+    </div>
+
+    <form id="loginForm" style="display: none"></form>
+    <script src="js/login.js"></script>
+  </body>
+</html>
